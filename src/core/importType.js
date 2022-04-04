@@ -31,14 +31,14 @@ export function isBuiltIn(name, settings, path) {
 }
 
 export function isExternalModule(name, path, context) {
-  if (arguments.length < 3) {                                                                                                                                                                              
+  if (arguments.length < 3) {
     throw new TypeError('isExternalModule: name, path, and context are all required');
   }
   return (isModule(name) || isScoped(name)) && typeTest(name, context, path) === 'external';
 }
 
 export function isExternalModuleMain(name, path, context) {
-  if (arguments.length < 3) {                                                                                                                                                                              
+  if (arguments.length < 3) {
     throw new TypeError('isExternalModule: name, path, and context are all required');
   }
   return isModuleMain(name) && typeTest(name, context, path) === 'external';

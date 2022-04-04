@@ -437,7 +437,14 @@ ExportMap.parse = function (path, content, context) {
   const namespaces = new Map();
 
   function remotePath(value) {
-    return resolve.relative(value, path, context.settings);
+    const file = resolve.relative(value, path, context.settings);
+
+    try {
+      const realPath = file && fs.realpathSync(file);
+      return realPath;
+    } catch (e) {
+      return file;
+    }
   }
 
   function resolveImport(value) {
@@ -533,7 +540,7 @@ ExportMap.parse = function (path, content, context) {
       if (tsConfigInfo.tsConfigPath !== undefined) {
         // Projects not using TypeScript won't have `typescript` installed.
         if (!ts) { ts = require('typescript'); }
-  
+
         const configFile = ts.readConfigFile(tsConfigInfo.tsConfigPath, ts.sys.readFile);
         return ts.parseJsonConfigFileContent(
           configFile.config,

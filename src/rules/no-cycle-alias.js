@@ -7,13 +7,11 @@ import resolve from 'eslint-module-utils/resolve';
 import Exports from '../ExportMap';
 import { isExternalModule } from '../core/importType';
 import moduleVisitor, { makeOptionsSchema } from 'eslint-module-utils/moduleVisitor';
-import docsUrl from '../docsUrl';
 
 // todo: cache cycles / deep relationships for faster repeat evaluation
 module.exports = {
   meta: {
     type: 'suggestion',
-    docs: { url: docsUrl('no-cycle') },
     schema: [makeOptionsSchema({
       maxDepth: {
         oneOf: [
